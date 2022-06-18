@@ -8,7 +8,7 @@ from .models import *
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
-from .forms import CheckoutForm, CustomerRegistrationForm, CustomerLoginForm
+from .forms import CheckoutForm, CustomerRegistrationForm, CustomerLoginForm, ProductForm
 
 # Create your views here.
 class ShopAppMixin(object):
@@ -358,6 +358,22 @@ class AdminOrderStatusChangeView(AdminRequiredMixin, View):
         order_obj.save()
         return redirect(reverse_lazy("shop_app:adminorderdetail", kwargs={"pk": order_id})) 
 
+class AdminProductListView(AdminRequiredMixin, ListView):
+    template_name = "adminpages/adminproductlist.html"
+    queryset = Product.objects.all().order_by("-id")
+    context_object_name = "allproducts"
+
+class AdminProductCreateView(AdminRequiredMixin, CreateView):
+    template_name = "adminpages/adminproductcreate.html"
+    form_class = ProductForm
+    success_url = reverse_lazy("shop_app:adminproductlist")
+
+    def form_valid(self, form):
+        p = form.save()
+        images = self.request.FILES.getlist("more_images")
+        for i in images:
+            ProductImage.objects.create(product=p, image=i)
+        return super().form_valid(form)
 
 
 
