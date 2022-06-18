@@ -2,7 +2,10 @@ from unittest import result
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import View, TemplateView, CreateView, FormView, DetailView, ListView
+from numpy import product
+from requests import request
 from .models import *
+from django.core.paginator import Paginator
 from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
 from .forms import CheckoutForm, CustomerRegistrationForm, CustomerLoginForm
@@ -26,7 +29,12 @@ class HomeView(ShopAppMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['my_name'] = "MarkPage2k1"
-        context['product_list'] = Product.objects.all().order_by("-id")
+        all_products = Product.objects.all().order_by("-id")
+        paginator = Paginator(all_products, 4)
+        page_number = self.request.GET.get('page')
+        product_list = paginator.get_page(page_number)
+
+        context['product_list'] = product_list
         return context
 
 class AllProductView(ShopAppMixin, TemplateView):
