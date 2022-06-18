@@ -24,7 +24,10 @@ urlpatterns = [
     path("profile/order-<int:pk>/", CustomerOrderDetailView.as_view(),
          name="customer_order_detail"),
 
+    path("search/", SearchView.as_view(), name="search"),
 
+
+    #admin site
     path("admin-login/", AdminLoginView.as_view(), name="adminlogin"),     
     path("admin-home/", AdminHomeView.as_view(), name="adminhome"),
     path("admin-order/<int:pk>/", AdminOrderDetailView.as_view(), name="adminorderdetail"),

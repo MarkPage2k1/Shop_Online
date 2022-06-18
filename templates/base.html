@@ -24,6 +24,17 @@
             <a href="{% url 'shop_app:customer_login' %}">Login</a> |
         {% endif %}
     </div>
+    <hr>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <form action="{% url 'shop_app:search' %}" method="GET">
+                    <input type="text" name="keyword" placeholder="Search here..." required>
+                    <button>Search</button>
+                </form>
+            </div>
+        </div>
+    </div>
 
     {% block content %}
     {% endblock %}
