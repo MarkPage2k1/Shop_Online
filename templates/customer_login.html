@@ -21,7 +21,7 @@
                 <li style="color: red;">{{error}}</li>
                 {% endif %}
             </form>
-            <p>Forgot Password?<a href="">Reset now.</a></p>
+            <p>Forgot Password?<a href="{% url 'shop_app:passwordforgot' %}">Reset now.</a></p>
             <p> or dont have account? <a href="{% url 'shop_app:customer_registration' %}{% if request.GET.next %}?next={{request.GET.next}}{%endif%}">Register here</a></p>
         </div>
     </div>

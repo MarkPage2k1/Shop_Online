@@ -83,3 +83,19 @@ class ProductForm(forms.ModelForm):
             }),
 
         }
+
+
+class ForgotPasswordForm(forms.Form):
+    email = forms.CharField(widget=forms.EmailInput(attrs={
+        "class": "form-control",
+        "placeholder": "Enter the email used in customer account..."
+    }))
+
+    def clean_email(self):
+        e = self.cleaned_data.get("email")
+        if Customer.objects.filter(user__email=e).exists():
+            pass
+        else:
+            raise forms.ValidationError(
+                "Customer with this account does not exists..")
+        return e

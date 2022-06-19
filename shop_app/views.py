@@ -8,18 +8,23 @@ from .models import *
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
-from .forms import CheckoutForm, CustomerRegistrationForm, CustomerLoginForm, ProductForm
+from .forms import *
+from .utils import password_reset_token
+from django.core.mail import send_mail
+from django.conf import settings
 
 # Create your views here.
 class ShopAppMixin(object):
     def dispatch(self, request, *args, **kwargs):
         cart_id = request.session.get("cart_id")
+        
         if cart_id:
             cart_obj = Cart.objects.get(id=cart_id)
-            if request.user.is_authenticated and request.user.customer:
+            if request.user.is_authenticated and Customer.objects.filter(user=request.user).exists():
                 cart_obj.customer = request.user.customer
                 print(cart_obj.customer)
                 cart_obj.save()
+              
         return super().dispatch(request, *args, **kwargs)
 
 
@@ -290,6 +295,34 @@ class SearchView(TemplateView):
         results = Product.objects.filter( Q(title__icontains=kw) | Q(description__icontains=kw) )
         context["results"] = results
         return context
+
+class ForgotPasswordView(FormView):
+    template_name = "forgotpassword.html"
+    form_class = ForgotPasswordForm
+    success_url = "/forgot-password/"
+
+    def form_valid(self, form):
+        # get email from user
+        email = form.cleaned_data.get("email")
+        # get current host ip/domain
+        url = self.request.META['HTTP_HOST']
+        # get customer and then user
+        customer = Customer.objects.get(user__email=email)
+        user = customer.user
+        # send mail to the user with email
+        text_content = 'Please Click the link below to reset your password. '
+        html_content = url + "/password-reset/" + email + \
+            "/" + password_reset_token.make_token(user) + "/"
+        send_mail(
+            'Password Reset Link | Django Ecommerce',
+            text_content + html_content,
+            settings.EMAIL_HOST_USER,
+            [email],
+            fail_silently=False,
+        )
+        return super().form_valid(form)
+
+
 
 #admin page
 class AdminLoginView(FormView):
