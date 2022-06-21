@@ -28,8 +28,8 @@ class CustomerRegistrationForm(forms.ModelForm):
         return uname
 
 class CustomerLoginForm(forms.Form):
-    username = forms.CharField(widget=forms.TextInput())
-    password = forms.CharField(widget=forms.PasswordInput())
+    username = forms.CharField(widget=forms.TextInput(), max_length=100)
+    password = forms.CharField(widget=forms.PasswordInput(), max_length=100)
 
 
 class ProductForm(forms.ModelForm):
