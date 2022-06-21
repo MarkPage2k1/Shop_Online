@@ -1,29 +1,30 @@
 {% extends 'adminpages/adminbase.html' %}
 {% load humanize %}
 
-{% block title %}Order Detail{% endblock  %}
+{% block title %}Chi tiết đơn hàng{% endblock  %}
 
 {% block content %}
-<div class="container">
+<div class="container" style="margin-top:10px">
     <div class="row">
         <div class="col-md-8 mx-auto">
-            <h3>Order Detail</h3>
+            <h3>Chi tiết đơn hàng</h3>
             <hr>
-            <p><span class="font-weight-bold">Order ID: </span> #ORDER_{{ord_obj.id}}</p>
-            <p><span class="font-weight-bold">Order Status: </span> {{ord_obj.order_status}}</p>
-            <p><span class="font-weight-bold">Order On: </span> {{ord_obj.created_at}}({{ord_obj.created_at|timesince}} ago)</p>
-            <p><span class="font-weight-bold">Customer Information: </span> By {{ord_obj.ordered_by}}, {{ord_obj.mobile}}</p>
-            <p><span class="font-weight-bold">Shipping Address: </span> By {{ord_obj.shipping_address}} ({{ord_obj.email}})</p>
-            <p><span class="font-weight-bold">Payment Information: </span>  Using {{ord_obj.payment_method}} ({% if ord_obj.payment_completed %}Payment Completed{% else %}Not Paid{% endif %})</p>
-            <h4>Ordered Items</h4>
+            <p><span class="font-weight-bold">Mã đơn hàng: </span> #ORDER_{{ord_obj.id}}</p>
+            <p><span class="font-weight-bold">Trạng thái: </span> {{ord_obj.order_status}}</p>
+            <p><span class="font-weight-bold">Đặt vào lúc: </span> {{ord_obj.created_at}}({{ord_obj.created_at|timesince}} ago)</p>
+            <p><span class="font-weight-bold">Đặt bởi khách hàng: </span> Tên: {{ord_obj.ordered_by}} - SDT: {{ord_obj.mobile}}</p>
+            <p><span class="font-weight-bold">Địa chỉ giao hàng: </span> By {{ord_obj.shipping_address}} ({{ord_obj.email}})</p>
+            <p><span class="font-weight-bold">Phương thức giao hàng: </span> {{ord_obj.payment_method}} ({% if ord_obj.payment_completed %}Payment Completed{% else %}Thành toán khi nhận hàng{% endif %})</p>
+            <hr>
+            <h4>Danh sách sản phẩm</h4>
             <table class="table">
                 <thead>
                     <tr>
-                        <th>SN</th>
-                        <th>Item</th>
-                        <th>Rate</th>
-                        <th>Quantity</th>
-                        <th>Subtotal</th>
+                        <th>STT</th>
+                        <th>Sản phẩm</th>
+                        <th>Giá</th>
+                        <th>Số lượng</th>
+                        <th>Tổng tiền</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -33,14 +34,14 @@
                         <td><a target="_blank"
                                 href="{% url 'shop_app:product_detail' cp.product.slug %}">{{cp.product.title}}({{cp.product.id}})</a>
                         </td>
-                        <td>{{cp.rate}}</td>
+                        <td>{{cp.rate| intcomma}} VND</td>
                         <td>{{cp.quantity}}</td>
-                        <td>{{cp.subtotal}}</td>
+                        <td>{{cp.subtotal| intcomma}} VND</td>
                     </tr>
                     {% endfor %}
                     <tr>
-                        <th colspan="4" class="text-right">Total: </th>
-                        <th>Rs {{ord_obj.total|intcomma}}/-</th>
+                        <th colspan="4" class="text-right">Thành tiền: </th>
+                        <th>{{ord_obj.total| intcomma}} VND</th>
                     </tr>
                 </tbody>
             </table>
@@ -51,7 +52,7 @@
                     <option value="{{i}}" {% if i == ord_obj.order_status %}selected{% endif %}>{{j}}</option>
                     {% endfor %}
                 </select>
-                <button class="btn btn-info">Change</button>
+                <button class="btn btn-info">Thay đổi</button>
                 
             </form>
 

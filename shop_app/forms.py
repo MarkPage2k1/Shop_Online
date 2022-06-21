@@ -28,8 +28,8 @@ class CustomerRegistrationForm(forms.ModelForm):
         return uname
 
 class CustomerLoginForm(forms.Form):
-    username = forms.CharField(widget=forms.TextInput())
-    password = forms.CharField(widget=forms.PasswordInput())
+    username = forms.CharField(widget=forms.TextInput(), max_length=100)
+    password = forms.CharField(widget=forms.PasswordInput(), max_length=100)
 
 
 class ProductForm(forms.ModelForm):
@@ -48,11 +48,11 @@ class ProductForm(forms.ModelForm):
         widgets = {
             "title": forms.TextInput(attrs={
                 "class": "form-control",
-                "placeholder": "Enter the product title here..."
+                "placeholder": "Nhập tên sản phẩm"
             }),
             "slug": forms.TextInput(attrs={
                 "class": "form-control",
-                "placeholder": "Enter the unique slug here..."
+                "placeholder": "Nhập đường dẫn đến sản phẩm"
             }),
             "category": forms.Select(attrs={
                 "class": "form-control"
@@ -62,24 +62,24 @@ class ProductForm(forms.ModelForm):
             }),
             "marked_price": forms.NumberInput(attrs={
                 "class": "form-control",
-                "placeholder": "Marked price of the product..."
+                "placeholder": "Giá niêm yết"
             }),
             "selling_price": forms.NumberInput(attrs={
                 "class": "form-control",
-                "placeholder": "Selling price of the product..."
+                "placeholder": "Giá khuyến mãi"
             }),
             "description": forms.Textarea(attrs={
                 "class": "form-control",
-                "placeholder": "Description of the product...",
+                "placeholder": "Mô tả sản phẩm",
                 "rows": 5
             }),
             "warranty": forms.TextInput(attrs={
                 "class": "form-control",
-                "placeholder": "Enter the product warranty here..."
+                "placeholder": "Thông tin bảo hành"
             }),
             "return_policy": forms.TextInput(attrs={
                 "class": "form-control",
-                "placeholder": "Enter the product return policy here..."
+                "placeholder": "Chính sách đổi trả"
             }),
 
         }

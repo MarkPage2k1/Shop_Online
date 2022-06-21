@@ -16,7 +16,7 @@
                 <hr>
                 <img src="{{p.image.url}}" alt="" class="img-fluid" style="height: 200px; object-fit: contain;">
                 <hr>
-                <p class="mt-3">Giá đã bao gồm 10% VAT: <strike>{{p.marked_price| intcomma}} VND</strike></p>
+                <p class="mt-3">Giá đã bao gồm 10% VAT: <strike>{{p.marked_price | intcomma}} VND</strike></p>
                 <p class="mt-3">Hotsale giảm sốc: {{p.selling_price| intcomma}} VND</p>
                 <a href="{% url 'shop_app:add_to_cart' p.id %}" class="btn btn-primary">Thêm vào giỏ</a>
             </div>

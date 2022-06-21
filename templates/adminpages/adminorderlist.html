@@ -1,21 +1,21 @@
 {% extends 'adminpages/adminbase.html' %}
-
-{% block title %}All Orders {% endblock %}
+{% load humanize %}
+{% block title %}Tất cả đơn hàng được đặt {% endblock %}
 
 {% block content %}
-<div class="container">
+<div class="container" style="margin-top:10px">
     <div class="row">
         <div class="col-md-12">
-            <h3>All Orders</h3><hr>
+            <h3>Tất cả đơn hàng</h3><hr>
             <table class="table">
                 <thead>
                     <tr>
-                        <th>SN</th>
-                        <th>Order ID </th>
-                        <th>Customer</th>
-                        <th>Ordered On</th>
-                        <th>Amount</th>
-                        <th>Status</th>
+                        <th>STT</th>
+                        <th>Mã đơn hàng </th>
+                        <th>Khách hàng</th>
+                        <th>Đặt vào lúc</th>
+                        <th>Tổng tiền</th>
+                        <th>Trạng thái</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -25,7 +25,7 @@
                         <td><a href="{% url 'shop_app:adminorderdetail' order.id %}">#ORDER_{{order.id}}</a></td>
                         <td>{{order.ordered_by}}</td>
                         <td>{{order.created_at}}</td>
-                        <td>{{order.total}}</td>
+                        <td>{{order.total| intcomma}} VND</td>
                         <td>{{order.order_status}}</td>
             
                     </tr>
