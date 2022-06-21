@@ -1,20 +1,20 @@
 {% extends 'base.html' %}
-
-{% block title %} My cart{% endblock %}
+{% load humanize %}
+{% block title %} Giỏ hàng của tôi{% endblock %}
 
 {% block content %}
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h4>Items in my cart</h4><hr>
+            <h4>Giỏ hàng của tôi</h4><hr>
             <table class="table">
                 <thead>
                     <tr>
-                        <th>SN</th>
-                        <th>Product</th>
-                        <th>Rate</th>
-                        <th>Quantity</th>
-                        <th>Subtotal</th>
+                        <th>STT</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Giá</th>
+                        <th>Số lượng</th>
+                        <th>Tổng tiền</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -23,9 +23,9 @@
                     <tr>
                         <td>{{forloop.counter}}</td>
                         <td>{{cp.product.title}}</td>
-                        <td>{{cp.rate}}</td>
+                        <td>{{cp.rate| intcomma}} VND</td>
                         <td>{{cp.quantity}}</td>
-                        <td>{{cp.subtotal}}</td>
+                        <td>{{cp.subtotal| intcomma}} VND</td>
                         <td>
                             <a href="{% url 'shop_app:manage_cart' cp.id %}?action=inc" class="btn btn-primary"> + </a>
                             <a href="{% url 'shop_app:manage_cart' cp.id %}?action=dcr" class="btn btn-warning"> - </a>
@@ -34,15 +34,15 @@
                     </tr>
                     {% endfor %}
                     <tr>
-                        <th colspan="4" class="text-right">Total</th>
-                        <th>Rs. {{cart.total}}</th>
+                        <th colspan="4" class="text-right">Thành tiền</th>
+                        <th>{{cart.total| intcomma}} VND</th>
                         {% if cart.cartproduct_set.all %}
-                        <th><a href="{% url 'shop_app:empty_cart'%}">Empty cart</a></th>
+                        <th><a href="{% url 'shop_app:empty_cart'%}">Hủy giỏ hàng</a></th>
                         {% endif %}
                     </tr>
                     {% if cart.cartproduct_set.all %}
                     <tr>
-                        <th><a class="btn btn-info" href="{% url 'shop_app:checkout' %}"> Checkout </a></th>
+                        <th><a class="btn btn-info" href="{% url 'shop_app:checkout' %}"> Thanh toán </a></th>
                     </tr>
                     {% endif %}
 

@@ -1,8 +1,8 @@
-from unittest import result
+from itertools import count
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import View, TemplateView, CreateView, FormView, DetailView, ListView
-from numpy import product
+from numpy import product, size
 from requests import request
 from .models import *
 from django.core.paginator import Paginator

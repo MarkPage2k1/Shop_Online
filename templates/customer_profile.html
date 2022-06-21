@@ -7,7 +7,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-4">
-            <h3>Detail Information</h3><hr>
+            <h3>Thông tin chi tiết</h3><hr>
             <p><span class="font-weight-bold">Name: </span> {{customer.full_name}}</p>
             <p><span class="font-weight-bold">Username: </span> {{customer.user.username}}</p>
             <p><span class="font-weight-bold">Email: </span> {{customer.user.email}}</p>
@@ -15,16 +15,16 @@
             <p><span class="font-weight-bold">Joined on: </span> {{customer.joined_on}}</p>
         </div>
         <div class="col-md-8">
-            <h3>Previous Orders</h3>
+            <h3>Lịch sử đặt hàng của bạn</h3>
             <hr>
             <table class="table">
                 <thead>
                     <tr>
-                        <th>SN</th>
-                        <th>Order ID</th>
-                        <th>Amount</th>
-                        <th>Ordered on</th>
-                        <th>Status</th>
+                        <th>STT</th>
+                        <th>Mã đơn hàng</th>
+                        <th>Tổng tiền</th>
+                        <th>Đặt hàng cách đây</th>
+                        <th>Trạng thái đơn hàng</th>
                     </tr>
                 </thead>
                 <tbody>
