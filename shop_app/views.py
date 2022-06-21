@@ -195,7 +195,7 @@ class CheckoutView(ShopAppMixin, CreateView):
             form.instance.subtotal = cart_obj.total
             form.instance.discount = 0
             form.instance.total = cart_obj.total
-            form.instance.order_status = "Order Received"
+            form.instance.order_status = "Chờ xác nhận"
             del self.request.session['cart_id']
         else:
             return redirect("shop_app:home")
@@ -357,7 +357,7 @@ class AdminHomeView(AdminRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["pendingorders"] = Order.objects.filter(
-            order_status="Order Received").order_by("-id")
+            order_status="Chờ xác nhận").order_by("-id")
         return context
 
     

@@ -84,11 +84,11 @@ class CartProduct(models.Model):
         return "Cart: " + str(self.cart.id) + " CartProduct: " + str(self.id)
 
 ORDERED_STATUS = (
-    ("Order Received", "Order Received"),
-    ("Order Processing", "Order Processing",),
-    ("On the way", "On the way"),
-    ("Order Complete", "Order Complete"),
-    ("Order Canceled", "Order Canceled"),
+    ("Chờ xác nhận", "Chờ xác nhận"),
+    ("Chờ lấy hàng", "Chờ lấy hàng",),
+    ("Đang giao", "Đang giao"),
+    ("Đã giao hàng", "Đã giao hàng"),
+    ("Đã hủy", "Đã hủy"),
 )
 
 class Order(models.Model):
